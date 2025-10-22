@@ -1,3 +1,8 @@
+<svelte:head>
+	<title>Genshin Certification</title>
+	<meta name="description" content="Generate your Genshin Impact Certification PDF!" />
+</svelte:head>
+
 <script lang="ts">
 	import { onMount, tick } from 'svelte';
 	import Certificate from '$lib/components/Certificate.svelte';

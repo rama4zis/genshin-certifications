@@ -14,23 +14,12 @@ type Profile = {
 
 export async function fetchProfiles(uid: string): Promise<Profile> {
     try {
-        const response = await fetch(`https://enka.network/api/uid/${uid}?info`);
+        // Use the server-side API endpoint to avoid CORS issues
+        const response = await fetch(`/api/profile/${uid}`);
         if (!response.ok) {
             throw new Error('Failed to fetch profiles');
         }
-        const dataResponse = await response.json();
-        const data: Profile = {
-            uid: dataResponse.uid,
-            nickname: dataResponse.playerInfo.nickname,
-            level: dataResponse.playerInfo.level,
-            worldLevel: dataResponse.playerInfo.worldLevel,
-            finishedAchievements: dataResponse.playerInfo.finishAchievementNum,
-            stygianIndex: dataResponse.playerInfo.stygianIndex,
-            stygianSeconds: dataResponse.playerInfo.stygianSeconds,
-            stygianId: dataResponse.playerInfo.stygianId,
-            spiralAbyssFloor: dataResponse.playerInfo.towerFloorIndex,
-            spiralAbyssFloorChamber: dataResponse.playerInfo.towerLevelIndex
-        }
+        const data: Profile = await response.json();
         console.log(data);
         return data;
     } catch (error) {
